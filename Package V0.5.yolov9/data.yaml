@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 25
+names: ['Box', 'Box_broken', 'Boxes', 'Open_package', 'Package', 'Parcel', 'backpack', 'bench', 'bicycle', 'box', 'boxes', 'brownbox', 'car', 'cardboard', 'good-parcel', 'handbag', 'motorbike', 'motorcycle', 'p1', 'package', 'parcel', 'person', 'refrigerator', 'suitcase', 'truck']
+
+roboflow:
+  workspace: swippe
+  project: swippe
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/swippe/swippe/dataset

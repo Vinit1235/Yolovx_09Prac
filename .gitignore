@@ -1,0 +1,15 @@
+# Dataset files (too large for git)
+Package V0.5.yolov9/train/
+Package V0.5.yolov9.zip
+annotated_dataset_clean.zip
+annotation_report.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# IDE
+.vscode/
+.idea/
