@@ -2,7 +2,10 @@
 Package V0.5.yolov9/train/
 Package V0.5.yolov9.zip
 annotated_dataset_clean.zip
+augmented_dataset.zip
+augmented_output/
 annotation_report.txt
+augmentation_log.txt
 
 # Python
 __pycache__/
