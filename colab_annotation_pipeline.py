@@ -125,11 +125,13 @@ def parse_line(line):
         return None
 
 
-def run_pipeline(apply_fix=False):
+def run_pipeline(apply_fix=False, limit=0):
     t0 = time.time()
     print("\n┌────────────────────────────────────────────────────────────┐")
     print("│  YOLOv9 Annotation Pipeline (Colab Edition)               │")
     print(f"│  Mode: {'🔧 FIX + ZIP' if apply_fix else '🔍 DRY RUN'}                                          │")
+    if limit > 0:
+        print(f"│  Limit: first {limit} images (test mode)                    │")
     print("└────────────────────────────────────────────────────────────┘\n")
 
     if not IMAGE_DIR.exists() or not LABEL_DIR.exists():
@@ -142,11 +144,19 @@ def run_pipeline(apply_fix=False):
     # ── Scan files ──
     print("\n  [1/5] Scanning directories...")
     img_map = {}
-    for f in IMAGE_DIR.iterdir():
+    for f in sorted(IMAGE_DIR.iterdir()):
         if f.is_file() and f.suffix.lower() in IMG_EXTS:
             img_map[f.stem] = f.name
+    # Apply limit if set (for testing on a subset)
+    if limit > 0:
+        all_stems = sorted(img_map.keys())[:limit]
+        img_map = {s: img_map[s] for s in all_stems}
+        print(f"        ⚠ Limited to first {limit} images for testing")
     lbl_map = {f.stem: f for f in LABEL_DIR.iterdir()
                if f.is_file() and f.suffix == '.txt'}
+    # Also limit labels to only those matching selected images
+    if limit > 0:
+        lbl_map = {s: lbl_map[s] for s in img_map if s in lbl_map}
     print(f"        Images: {len(img_map)} | Labels: {len(lbl_map)}")
 
     # ── Image integrity (GPU-threaded) ──
@@ -313,4 +323,13 @@ def run_pipeline(apply_fix=False):
 
 
 if __name__ == "__main__":
-    run_pipeline(apply_fix="--fix" in sys.argv)
+    apply = "--fix" in sys.argv
+    limit = 0
+    if "--limit" in sys.argv:
+        idx = sys.argv.index("--limit")
+        if idx + 1 < len(sys.argv):
+            try:
+                limit = int(sys.argv[idx + 1])
+            except ValueError:
+                print("  ⚠ Invalid --limit value, processing all images")
+    run_pipeline(apply_fix=apply, limit=limit)
