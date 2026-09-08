@@ -126,7 +126,15 @@ This repository is connected to the GitHub remote:
 
 ## License
 
-This project is for research and training purposes. Please review dataset licensing and source usage restrictions before public deployment or redistribution.
+This repository's original code, scripts, and documentation are licensed under the MIT License.
+
+The full text is in [LICENSE](LICENSE).
+
+### Dataset licensing notice
+
+The dataset assets in this project were sourced from a Roboflow export and are documented as having a license status of `Private` in [DATASET_DOCUMENTATION.md](DATASET_DOCUMENTATION.md). That means the dataset itself is not covered by the MIT license and should not be redistributed or publicly re-shared without explicit permission from the original dataset owner or the source licensing terms.
+
+This project is intended for research and training use only. If you plan to publish or deploy the model publicly, review the dataset source terms and ensure compliance before sharing data, weights, or model outputs.
 
 ## Acknowledgements
 
